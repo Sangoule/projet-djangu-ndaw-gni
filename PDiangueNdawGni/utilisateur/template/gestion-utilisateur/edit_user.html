@@ -1,0 +1,22 @@
+<!-- edit_user.html -->
+{% extends 'layouts/base.html' %}
+{% block title %} Edit User {% endblock title %}
+{% block content %}
+
+<h1>Edit User</h1>
+
+<form method="post" >
+  {% csrf_token %}
+
+  <label for="username">Username:</label>
+  {{form.as_p}}
+  {{profile.as_p}}
+
+  
+
+  <!-- Ajoutez d'autres champs à modifier si nécessaire -->
+
+  <button type="submit">Save</button>
+</form>
+
+{% endblock content %}

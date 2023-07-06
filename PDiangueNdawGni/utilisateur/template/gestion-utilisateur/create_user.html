@@ -1,0 +1,15 @@
+{% extends 'layouts/base.html' %}
+{% block title %} Signup {% endblock title %}
+{% block content %}
+
+<h1>Signup</h1>
+
+<form method="post">
+  {% csrf_token %}
+    {{ user_form.as_p }}
+    {{ profile_form.profil }}
+    {{ profile_form.avatar }}
+  <button type="submit">Signup</button>
+</form>
+
+{% endblock content %}

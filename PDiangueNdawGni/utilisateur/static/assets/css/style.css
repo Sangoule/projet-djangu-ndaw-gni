@@ -1,0 +1,35 @@
+.nav-bar-brand{
+    
+    
+    margin-right: 1rem;
+    font-size: 1.25rem;
+    line-height: inherit;
+    white-space: nowrap;
+}
+.image-logo{
+    width: 200px;
+    height: 200px;
+    
+}
+.g-sidenav-pinned .sidenav .nav-bar-brand, .g-sidenav-pinned .sidenav .navbar-heading {
+    display: block;
+}
+
+.g-sidenav-show .sidenav .nav-bar-brand, .g-sidenav-show .sidenav .navbar-heading {
+    display: block;
+}
+
+.navbar-vertical .nav-bar-brand {
+    margin-right: 0;
+    padding-bottom: 15px
+}
+.navbar-light .nav-bar-brand {
+    color: rgba(0, 0, 0, 0.9);
+}
+.navbar-vertical .nav-bar-brand > img {
+    max-width: 100%;
+    max-height: 120px;
+}
+.nav-bar-inner-padding{
+    padding-top: 45px;
+}

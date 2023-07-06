@@ -1,0 +1,15 @@
+<!-- create_user.html -->
+{% extends 'layouts/base.html' %}
+{% block title %} Create User {% endblock title %}
+{% block content %}
+
+<!-- Afficher le formulaire d'inscription -->
+<form method="POST">
+    {% csrf_token %}
+    {{ user_form.as_p }}
+    {{ profile_form.as_p }}
+    <button type="submit">Create User</button>
+</form>
+
+{% endblock content %}
+
