@@ -46,7 +46,7 @@
                         <th scope="col" class="sort" data-sort="completion">Sexe</th>
                         <th scope="col" class="sort" data-sort="completion">Risque d'abandon</th>
                         <th scope="col" class="sort" data-sort="completion">Probabilité de réussite</th>
-                        <th scope="col" class="sort">Lancer un alerte</th>
+                        <th scope="col" class="sort">Faire une prédiction</th>
                     </tr>
                 </thead>
                 <tbody class="list">
@@ -74,11 +74,35 @@
                             <td>
                                 {{ eleve.proba_reussite }}
                             </td>
+
+                            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
                             <td>
-                                <div class="avatar-group">
-                                    <i class="ni ni-bell-55"></i>
-                                </div>
-                            </td>
+                              {% if eleve.risque_abandon is not null and eleve.proba_reussite is not null %}
+                                <a href="#" class="btn bg-gradient-success disabled" onclick="return false;">Prédire</a>
+                                  
+                              {% else %}
+                              <a href="#" 
+                                  class="predict-btn btn bg-gradient-success"
+                                  data-id="{{ eleve.id }}"
+                                  data-nom="{{ eleve.nom }}"
+                                  data-prenom="{{ eleve.prenom }}"
+                                  data-application-mode="{{ eleve.application_mode }}"
+                                  data-displaced="{{ eleve.displaced }}"
+                                  data-debtor="{{ eleve.debtor }}"
+                                  data-tuition-fees-up-to-date="{{ eleve.tuition_fees_up_to_date }}"
+                                  data-gender="{{ eleve.gender }}"
+                                  data-scholarship-holder="{{ eleve.scholarship_holder }}"
+                                  data-age-at-enrollment="{{ eleve.age_at_enrollment }}"
+                                  data-curricular-units-1st-sem-enrolled="{{ eleve.curricular_units_1st_sem_enrolled }}"
+                                  data-curricular-units-1st-sem-approved="{{ eleve.curricular_units_1st_sem_approved }}"
+                                  data-curricular-units-1st-sem-grade="{{ eleve.curricular_units_1st_sem_grade }}"
+                                  data-curricular-units-2nd-sem-enrolled="{{ eleve.curricular_units_2nd_sem_enrolled }}"
+                                  data-curricular-units-2nd-sem-approved="{{ eleve.curricular_units_2nd_sem_approved }}"
+                                  data-curricular-units-2nd-sem-grade="{{ eleve.curricular_units_2nd_sem_grade }}">
+                                  Prédire
+                              </a>
+                              {% endif %}
+                          </td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -99,5 +123,67 @@
 <!-- ... votre code HTML existant ... -->
 
 </table>
+
+<script>
+  $('.predict-btn').on('click', function () {
+      var eleveId = $(this).data('id');
+      var nom = $(this).data('nom');
+      var prenom = $(this).data('prenom');
+
+      // Ajoutez les autres champs dont vous avez besoin ici
+      var applicationMode = $(this).data('application-mode');
+      var displaced = $(this).data('displaced');
+      var debtor = $(this).data('debtor');
+      var tuitionFeesUpToDate = $(this).data('tuition-fees-up-to-date');
+      var gender = $(this).data('gender');
+      var scholarshipHolder = $(this).data('scholarship-holder');
+      var ageAtEnrollment = $(this).data('age-at-enrollment');
+      var curricularUnits1stSemEnrolled = $(this).data('curricular-units-1st-sem-enrolled');
+      var curricularUnits1stSemApproved = $(this).data('curricular-units-1st-sem-approved');
+      var curricularUnits1stSemGrade = $(this).data('curricular-units-1st-sem-grade');
+      var curricularUnits2ndSemEnrolled = $(this).data('curricular-units-2nd-sem-enrolled');
+      var curricularUnits2ndSemApproved = $(this).data('curricular-units-2nd-sem-approved');
+      var curricularUnits2ndSemGrade = $(this).data('curricular-units-2nd-sem-grade');
+
+      // Sérialisez toutes les données dont vous avez besoin dans l'objet payload
+      var payload = {
+          id: eleveId,
+          nom: nom,
+          prenom: prenom,
+          application_mode: applicationMode,
+          displaced: displaced,
+          debtor: debtor,
+          tuition_fees_up_to_date: tuitionFeesUpToDate,
+          gender: gender,
+          scholarship_holder: scholarshipHolder,
+          age_at_enrollment: ageAtEnrollment,
+          curricular_units_1st_sem_enrolled: curricularUnits1stSemEnrolled,
+          curricular_units_1st_sem_approved: curricularUnits1stSemApproved,
+          curricular_units_1st_sem_grade: curricularUnits1stSemGrade,
+          curricular_units_2nd_sem_enrolled: curricularUnits2ndSemEnrolled,
+          curricular_units_2nd_sem_approved: curricularUnits2ndSemApproved,
+          curricular_units_2nd_sem_grade: curricularUnits2ndSemGrade,
+      };
+
+      // Effectuez une requête AJAX vers votre API de prédiction
+      $.ajax({
+          url: 'http://127.0.0.1:5000/predictStudent/',
+          type: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify(payload),
+          success: function (response) {
+              // Mettez à jour les champs dans la page avec la réponse de l'API
+              $('#' + eleveId + '-risque-abandon').text(response.proba_dropout + '%');
+              $('#' + eleveId + '-proba-reussite').text((100 - response.proba_dropout) + '%');
+          },
+          error: function () {
+              alert('Erreur lors de la prédiction.');
+          }
+      });
+
+      // Empêchez le lien d'être suivi
+      return false;
+  });
+</script>
 
 {% endblock content %}
