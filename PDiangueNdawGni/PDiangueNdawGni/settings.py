@@ -39,13 +39,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'safedelete',
+    'softdelete',
+    
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -76,10 +79,28 @@ WSGI_APPLICATION = 'PDiangueNdawGni.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
+
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+
+        
+
+        'NAME': 'dianguendawgni',
+
+        'USER': 'postgres',
+
+        'PASSWORD': 'postgres',
+
+        # 'HOST': 'localhost',
+        'HOST': 'localhost',
+
+        'PORT': '5434',
+
+        'TEST': {
+            'NAME': 'diangue_test',
+        },
+    }   
 }
 #AUTH_USER_MODEL = 'utilisateur.Utilisateur'
 
@@ -117,7 +138,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'utilisateur/static')
 ]

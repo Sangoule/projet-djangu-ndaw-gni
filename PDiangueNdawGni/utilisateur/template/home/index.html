@@ -8,12 +8,12 @@
 {% block content %}
 
     <!-- Header -->
-    <div class="header bg-primary pb-6">
+    <div class="header bg-dark pb-6">
       <div class="container-fluid">
         <div class="header-body">
           <div class="row align-items-center py-4">
             <div class="col-lg-6 col-7">
-              <h6 class="h2 text-white d-inline-block mb-0">Statistiques</h6>
+              <h6 class="h2 text-white d-inline-block mb-0">Accueil</h6>
               <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                 <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                   <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
@@ -30,13 +30,14 @@
           <!-- Card stats -->
           <div class="row">
             <div class="col-xl-3 col-md-6">
+             <a href="{% url 'listeEleves'%}">
               <div class="card card-stats">
                 <!-- Card body -->
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
                       <h5 class="card-title text-uppercase text-muted mb-0">Classe de 6e</h5>
-                      <span class="h2 font-weight-bold mb-0">105 èlèves</span>
+                      <span class="h2 font-weight-bold mb-0">105 élèves</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
@@ -45,20 +46,22 @@
                     </div>
                   </div>
                   <p class="mt-3 mb-0 text-sm">
-                    <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i> 3.48%</span>
+                    <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i> 0.1%</span>
                     <span class="text-nowrap">Depuis le dernier mois</span>
                   </p>
                 </div>
               </div>
+             </a>
             </div>
             <div class="col-xl-3 col-md-6">
+              <a href="{% url 'listeEleves'%}">
               <div class="card card-stats">
                 <!-- Card body -->
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
                       <h5 class="card-title text-uppercase text-muted mb-0">Classe de 5e</h5>
-                      <span class="h2 font-weight-bold mb-0">95 éléves</span>
+                      <span class="h2 font-weight-bold mb-0">95 élèves</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
@@ -67,20 +70,22 @@
                     </div>
                   </div>
                   <p class="mt-3 mb-0 text-sm">
-                    <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i> 4.48%</span>
+                    <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i> 0.5%</span>
                     <span class="text-nowrap">Depuis le dernier mois </span>
                   </p>
                 </div>
               </div>
+              </a>
             </div>
             <div class="col-xl-3 col-md-6">
+              <a href="{% url 'listeEleves'%}">
               <div class="card card-stats">
                 <!-- Card body -->
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
                       <h5 class="card-title text-uppercase text-muted mb-0">Classe de 4e</h5>
-                      <span class="h2 font-weight-bold mb-0">65</span>
+                      <span class="h2 font-weight-bold mb-0">65 élèves</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
@@ -89,20 +94,22 @@
                     </div>
                   </div>
                   <p class="mt-3 mb-0 text-sm">
-                    <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i> 3.48%</span>
-                    <span class="text-nowrap">Depuis le denier mois</span>
+                    <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i> 1.48%</span>
+                    <span class="text-nowrap">Depuis le dernier mois</span>
                   </p>
                 </div>
               </div>
+              </a>
             </div>
             <div class="col-xl-3 col-md-6">
+              <a href="{% url 'listeEleves'%}">
               <div class="card card-stats">
                 <!-- Card body -->
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Classe de 3em</h5>
-                      <span class="h2 font-weight-bold mb-0">45 éleves</span>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Classe de 3e</h5>
+                      <span class="h2 font-weight-bold mb-0">45 élèves</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
@@ -111,11 +118,12 @@
                     </div>
                   </div>
                   <p class="mt-3 mb-0 text-sm">
-                    <span class="text-danger mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
+                    <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
                     <span class="text-nowrap">Depuis le mois dernier </span>
                   </p>
                 </div>
               </div>
+              </a>
             </div>
           </div>
         </div>
@@ -124,8 +132,8 @@
 
     <!-- Page content -->
     <div class="container-fluid mt--6">
-      <div class="row">
-        <div class="col-xl-8">
+      <div class="">
+        <div class="">
           <div class="card bg-default">
             <div class="card-header bg-transparent">
               <div class="row align-items-center">
@@ -160,36 +168,17 @@
             </div>
           </div>
         </div>
-        <div class="col-xl-4">
-          <div class="card">
-            <div class="card-header bg-transparent">
-              <div class="row align-items-center">
-                <div class="col">
-                  <h6 class="text-uppercase text-muted ls-1 mb-1">Performance</h6>
-                  <h5 class="h3 mb-0">Total orders</h5>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-              <!-- Chart -->
-              <div class="chart">
-                <canvas id="chart-bars" class="chart-canvas"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
+       
       </div>
-      <div class="row">
-        <div class="col-xl-8">
+      <div class="">
+        <div class="">
           <div class="card">
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">Page visits</h3>
+                  <h3 class="mb-0">Situations Alarmantes</h3>
                 </div>
-                <div class="col text-right">
-                  <a href="#!" class="btn btn-sm btn-primary">See all</a>
-                </div>
+                
               </div>
             </div>
             <div class="table-responsive">
@@ -197,206 +186,115 @@
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                   <tr>
-                    <th scope="col">Page name</th>
-                    <th scope="col">Visitors</th>
-                    <th scope="col">Unique users</th>
-                    <th scope="col">Bounce rate</th>
+                    <th scope="col">Classes</th>
+                    <th scope="col">Nombres de cas</th>
+                    <th scope="col">Pourcentages</th>
+                    <th scope="col">Details</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <th scope="row">
-                      /argon/
+                      Sixième
                     </th>
                     <td>
-                      4,569
+                      02
                     </td>
                     <td>
-                      340
+                      <div class="d-flex align-items-center">
+                        <span class="mr-2">2%</span>
+                        <div>
+                          <div class="progress">
+                            <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="00" aria-valuemin="0" aria-valuemax="100" style="width: 02%;"></div>
+                          </div>
+                        </div>
+                      </div>
                     </td>
                     <td>
-                      <i class="fas fa-arrow-up text-success mr-3"></i> 46,53%
+                      <div class="col">
+                        <a href="#!" class="btn btn-sm bg-gradient-success"> Voir Details</a>
+                      </div>
                     </td>
                   </tr>
                   <tr>
                     <th scope="row">
-                      /argon/index.html
+                      Cinquième 
                     </th>
                     <td>
-                      3,985
+                      03
                     </td>
                     <td>
-                      319
+                      <div class="d-flex align-items-center">
+                        <span class="mr-2">3%</span>
+                        <div>
+                          <div class="progress">
+                            <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="05" aria-valuemin="0" aria-valuemax="100" style="width: 3%;"></div>
+                          </div>
+                        </div>
+                      </div>
                     </td>
                     <td>
-                      <i class="fas fa-arrow-down text-warning mr-3"></i> 46,53%
+                      <div class="col">
+                        <a href="#!" class="btn btn-sm bg-gradient-success">Voir Details</a>
+                      </div>
                     </td>
                   </tr>
                   <tr>
                     <th scope="row">
-                      /argon/charts.html
+                      Quatrième
                     </th>
                     <td>
-                      3,513
+                      08
                     </td>
                     <td>
-                      294
+                      <div class="d-flex align-items-center">
+                        <span class="mr-2">5%</span>
+                        <div>
+                          <div class="progress">
+                            <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100" style="width: 05%;"></div>
+                          </div>
+                        </div>
+                      </div>
                     </td>
                     <td>
-                      <i class="fas fa-arrow-down text-warning mr-3"></i> 36,49%
+                      <div class="col">
+                        <a href="#!" class="btn btn-sm bg-gradient-success">Voir Details</a>
+                      </div>
                     </td>
                   </tr>
                   <tr>
                     <th scope="row">
-                      /argon/tables.html
+                      Troisième 
                     </th>
                     <td>
-                      2,050
+                      15
                     </td>
                     <td>
-                      147
+                      <div class="d-flex align-items-center">
+                        <span class="mr-2">33%</span>
+                        <div>
+                          <div class="progress">
+                            <div class="progress-bar bg-gradient-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 33%;"></div>
+                          </div>
+                        </div>
+                      </div>
                     </td>
                     <td>
-                      <i class="fas fa-arrow-up text-success mr-3"></i> 50,87%
+                      <div class="col">
+                        <a href="#!" class="btn btn-sm bg-gradient-success">Voir Details</a>
+                      </div>
                     </td>
                   </tr>
-                  <tr>
-                    <th scope="row">
-                      /argon/profile.html
-                    </th>
-                    <td>
-                      1,795
-                    </td>
-                    <td>
-                      190
-                    </td>
-                    <td>
-                      <i class="fas fa-arrow-down text-danger mr-3"></i> 46,53%
-                    </td>
-                  </tr>
+                 
+     
+              
+               
                 </tbody>
               </table>
             </div>
           </div>
         </div>
-        <div class="col-xl-4">
-          <div class="card">
-            <div class="card-header border-0">
-              <div class="row align-items-center">
-                <div class="col">
-                  <h3 class="mb-0">Social traffic</h3>
-                </div>
-                <div class="col text-right">
-                  <a href="#!" class="btn btn-sm btn-primary">See all</a>
-                </div>
-              </div>
-            </div>
-            <div class="table-responsive">
-              <!-- Projects table -->
-              <table class="table align-items-center table-flush">
-                <thead class="thead-light">
-                  <tr>
-                    <th scope="col">Referral</th>
-                    <th scope="col">Visitors</th>
-                    <th scope="col"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">
-                      Facebook
-                    </th>
-                    <td>
-                      1,480
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="mr-2">60%</span>
-                        <div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      Facebook
-                    </th>
-                    <td>
-                      5,480
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="mr-2">70%</span>
-                        <div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%;"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      Google
-                    </th>
-                    <td>
-                      4,807
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="mr-2">80%</span>
-                        <div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-primary" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      Instagram
-                    </th>
-                    <td>
-                      3,678
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="mr-2">75%</span>
-                        <div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      twitter
-                    </th>
-                    <td>
-                      2,645
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="mr-2">30%</span>
-                        <div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-warning" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%;"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
+       
       </div>
 
       {% include "includes/footer.html" %}

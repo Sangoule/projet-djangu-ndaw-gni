@@ -18,7 +18,7 @@ tout dabord on doit installer le module pylot pour l'image
 ensuite on specifie le chemin dans la quelle nos images vont etre stocker 
 #####
 Maintenant on crer notre superuser
-avec la commande python3 manage.py createsuperuser
+avec la commande cd 
 username dakantal 1
 password dakantal 2 + chiffre prefere
 nb en minuscule

@@ -5,14 +5,25 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from .models import UserProfile
+from django.db.models import Count
+from .models import User
 from .form import *
 import os
 from django.conf import settings
 # Create your views here.
 def index(request):
-    return render(request,'home/index.html')
+    classes=Classe.objects.all()
+    return render(request,'home/index.html',{'classes':classes})
 
+
+def liste_classes(request):
+    classes = Classe.objects.annotate(nombre_eleves=Count('eleve'))
+    return render(request, 'home/listedesclasses.html', {'classes': classes})
+
+def liste_eleves_par_classe(request, classe_id):
+    classe = Classe.objects.get(pk=classe_id)
+    eleves = Eleve.objects.filter(classe=classe)
+    return render(request, 'home/listedeseleves.html', {'classe': classe, 'eleves': eleves})
 def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, request.POST)
@@ -111,3 +122,15 @@ def edit_profile(request, idUser):
     }
 
     return render(request, 'gestion-utilisateur/edit_user.html', context)
+
+def donnes(request):
+    return render(request,'home/donnes_solaires.html')
+
+def predictions(request):
+    return render(request,'home/predictions.html')
+
+def listeFormation(request):
+    return render(request,'home/liste_formation.html')
+
+def listeEleves(request):
+    return render(request,'home/listedeseleves.html')

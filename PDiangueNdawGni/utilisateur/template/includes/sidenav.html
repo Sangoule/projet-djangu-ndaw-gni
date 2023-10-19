@@ -18,39 +18,39 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {% if 'icons' in segment %} active {% endif %}" href="#">
-              <i class="ni ni-planet text-orange"></i>
+            <a class="nav-link {% if 'icons' in segment %} active {% endif %}" href="{% url 'donnes' %}">
+              <i class="ni ni-books text-orange"></i>
               <span class="nav-link-text">Données Scolaires</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {% if 'map' in segment %} active {% endif %}" href="{% url 'user-list' %}">
-              <i class="ni ni-pin-3 text-primary"></i>
-              <span class="nav-link-text">Gestion Utilisateurs</span>
+            <a class="nav-link {% if 'map' in segment %} active {% endif %}" href="{% url 'liste_classes' %}">
+              <i class="ni ni-building text-primary"></i>
+              <span class="nav-link-text">Classes</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {% if 'profile' in segment %} active {% endif %}" href="#">
-              <i class="ni ni-single-02 text-yellow"></i>
-              <span class="nav-link-text">Profile</span>
+            <a class="nav-link {% if 'profile' in segment %} active {% endif %}" href="{% url 'listeFormation' %}">
+              <i class="ni ni-hat-3 text-yellow"></i>
+              <span class="nav-link-text">Formations</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {% if 'tables' in segment %} active {% endif %}" href="#">
-              <i class="ni ni-bullet-list-67 text-default"></i>
+            <a class="nav-link {% if 'tables' in segment %} active {% endif %}" href="{% url 'predictions' %}">
+              <i class="ni ni-chart-bar-32 text-default"></i>
               <span class="nav-link-text">Predictions</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'login'%}">
-              <i class="ni ni-key-25 text-info"></i>
-              <span class="nav-link-text">Login </span>
+              <i class="ni ni-chat-round text-info"></i>
+              <span class="nav-link-text">Forum de soutient</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'register'%}">
-              <i class="ni ni-circle-08 text-pink"></i>
-              <span class="nav-link-text">Register</span>
+            <a class="nav-link" href="#">
+              <i class="ni ni-user-run text-red"></i>
+              <span class="nav-link-text">Log Out</span>
             </a>
           </li>
 
@@ -62,7 +62,7 @@
         <hr class="my-3">
         <!-- Heading -->
         <h6 class="navbar-heading p-0 text-muted">
-          <span class="docs-normal">Resources</span>
+          <span class="docs-normal">Ressources</span>
         </h6>
         <!-- Navigation -->
 
