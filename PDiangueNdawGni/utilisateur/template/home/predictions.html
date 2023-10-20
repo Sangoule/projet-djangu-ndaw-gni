@@ -1,6 +1,7 @@
 {% extends 'layouts/base.html' %}
 {% block title %} User List {% endblock title %}
 {% block content %}
+{% load my_filters %}
 <div class="header bg-dark pb-6">
     <div class="container-fluid">
       <div class="header-body">
@@ -44,20 +45,25 @@
                   <th scope="col">Status
                     <i class="fa fa-arrow-down text-red"></i>
                   </th>
+                  <th scope="col" class="sort" data-sort="completion">Pourcentages</th>
                  
                 </tr>
               </thead>
               <tbody class="list">
+                {% for eleve in eleves %}
                 <tr>
+                  {% if eleve.risque_abandon is not null and eleve.risque_abandon >= 50 %}
                   <th scope="row " class="">
-                    Samba Ndour
+                    {{  eleve.prenom  }}
+                    &nbsp;
+                    {{  eleve.nom  }}
                   </th>
                   <td class="budget">
-                    17 ans
+                    {{eleve.age_at_enrollment}}
                   </td>
                   <td>
                     <span class="badge badge-dot mr-4">
-                      <span class="status text-center">3E</span>
+                      <span class="status text-center">{{eleve.classe.niveau}}</span>
                     </span>
                   </td>
                   <td>
@@ -66,9 +72,23 @@
                       <span class="status  text-red"> A risque d'abandon </span>
                     </span>
                   </td>
-                 
+                  <td>
+                    {% if eleve.risque_abandon is not null %}  
+                      <div class="d-flex align-items-center">
+                        <span class="completion mr-2">{{ eleve.risque_abandon|round_to_int}}%</span>
+                        <div>
+                          <div class="progress">
+                            <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="{{ eleve.risque_abandon }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ eleve.risque_abandon }}%;"></div>
+                          </div>
+                        </div>
+                      </div>
+                    {% else %}
+                      {{ eleve.risque_abandon }}
+                    {% endif %}
+                  </td>
+                 {% endif %}
                 </tr>
-               
+               {% endfor %}
               </tbody>
             </table>
           </div>

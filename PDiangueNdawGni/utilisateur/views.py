@@ -6,13 +6,17 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.db.models import Count
-from .models import User
+from .models import *
+import requests
 from .form import *
+
+from django.shortcuts import render
+from django.http import JsonResponse
 import os
 from django.conf import settings
 # Create your views here.
 def index(request):
-    classes=Classe.objects.all()
+    classes = Classe.objects.annotate(nombre_eleves=Count('eleve')).order_by('-pk')
     return render(request,'home/index.html',{'classes':classes})
 
 
@@ -22,7 +26,8 @@ def liste_classes(request):
 
 def liste_eleves_par_classe(request, classe_id):
     classe = Classe.objects.get(pk=classe_id)
-    eleves = Eleve.objects.filter(classe=classe)
+    eleves = Eleve.objects.filter(classe=classe).order_by('-pk')
+    
     return render(request, 'home/listedeseleves.html', {'classe': classe, 'eleves': eleves})
 def login_view(request):
     if request.method == 'POST':
@@ -127,10 +132,81 @@ def donnes(request):
     return render(request,'home/donnes_solaires.html')
 
 def predictions(request):
-    return render(request,'home/predictions.html')
+    eleves = Eleve.objects.all().order_by('-pk')
+    return render(request,'home/predictions.html',{'eleves':eleves
+    })
 
 def listeFormation(request):
     return render(request,'home/liste_formation.html')
 
 def listeEleves(request):
     return render(request,'home/listedeseleves.html')
+
+
+# views.py
+
+
+
+def update_eleve_fields(request, eleve_id):
+    eleve = Eleve.objects.get(pk=eleve_id)
+    
+    classe = Classe.objects.get(pk=eleve.classe.id)
+    # Appelez l'API de prédiction
+    prediction_api_url = 'http://localhost:5000/predictStudent/'
+    eleve_displaced = True if eleve.displaced else False
+    eleve_debtor = True if eleve.debtor else False
+    eleve_tuition_fees_up_to_date = True if eleve.tuition_fees_up_to_date else False
+    eleve_scholarship_holder = True if eleve.scholarship_holder else False
+
+    # Convertir le champ gender
+    eleve_gender = 1 if eleve.gender == 'Female' else 0
+    eleves_json = []
+    # Créer un dictionnaire pour chaque élève avec tous les champs
+    eleve_data = {
+        
+        'nom': eleve.nom,
+        'prenom': eleve.prenom,
+        'application_mode': eleve.application_mode,
+        'displaced': eleve_displaced,
+        'debtor': eleve_debtor,
+        'tuition_fees_up_to_date': eleve_tuition_fees_up_to_date,
+        'gender': eleve_gender,
+        'scholarship_holder': eleve_scholarship_holder,
+        'age_at_enrollment': eleve.age_at_enrollment,
+        'curricular_units_1st_sem_enrolled': eleve.curricular_units_1st_sem_enrolled,
+        'curricular_units_1st_sem_approved': eleve.curricular_units_1st_sem_approved,
+        'curricular_units_1st_sem_grade': eleve.curricular_units_1st_sem_grade,
+        'curricular_units_2nd_sem_enrolled': eleve.curricular_units_2nd_sem_enrolled,
+        'curricular_units_2nd_sem_approved': eleve.curricular_units_2nd_sem_approved,
+        'curricular_units_2nd_sem_grade': eleve.curricular_units_2nd_sem_grade,
+        
+    }
+
+    eleves_json.append(eleve_data)
+
+    
+    # response = requests.post(prediction_api_url, eleves_json)
+    response= requests.post(prediction_api_url, json=eleve_data)
+    
+    if response.status_code == 200:
+        prediction_result = response.json()
+        print(prediction_result)
+        # Mettez à jour les champs en fonction du résultat de la prédiction
+        eleve.risque_abandon = prediction_result['proba_dropout']
+        eleve.proba_reussite = 100-prediction_result['proba_dropout']
+        
+        # Enregistrez les modifications dans la base de données
+        try:
+            eleve.save()
+            print("Eleve enregistré avec succès")
+        except Exception as e:
+            # Gérer l'erreur, par exemple en affichant un message d'erreur
+            print(f"Erreur lors de l'enregistrement de l'élève : {e}")
+
+        classe = Classe.objects.get(pk=eleve.classe.id)
+        eleves = Eleve.objects.filter(classe=classe).order_by('-pk')
+        
+        return render(request, 'home/listedeseleves.html', {'eleves': eleves, 'classe': classe})
+    else:
+        return JsonResponse({'status': 'error', 'message': 'Failed to get prediction result'})
+

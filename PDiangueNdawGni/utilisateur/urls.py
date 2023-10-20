@@ -24,7 +24,7 @@ urlpatterns = [
     path('predictAll', predictions.getAllprediction, name="predictAll"),
     path('predict/<int:id>', predictions.getOnePrediction, name="predict"),
     path('predictStudent', predictions.predire, name="predictStudent"),
-
+    path('update_eleve_fields/<int:eleve_id>', views.update_eleve_fields, name="update_eleve_fields"),
     path('classes/', views.liste_classes, name='liste_classes'),
     path('classes/<int:classe_id>/', views.liste_eleves_par_classe, name='liste_eleves_par_classe'),
 ]

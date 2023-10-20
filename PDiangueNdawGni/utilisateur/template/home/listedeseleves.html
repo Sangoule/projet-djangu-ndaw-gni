@@ -1,7 +1,9 @@
 <!-- user_list.html -->
+
 {% extends 'layouts/base.html' %}
 {% block title %} User List {% endblock title %}
 {% block content %}
+{% load my_filters %}
 <div class="header bg-dark pb-6">
     <div class="container-fluid">
       <div class="header-body">
@@ -43,7 +45,7 @@
                         <th scope="col" class="sort" data-sort="name">Prénom</th>
                         <th scope="col" class="sort" data-sort="budget">Nom</th>
                         <th scope="col" class="sort" data-sort="completion">Âge</th>
-                        <th scope="col" class="sort" data-sort="completion">Sexe</th>
+                        
                         <th scope="col" class="sort" data-sort="completion">Risque d'abandon</th>
                         <th scope="col" class="sort" data-sort="completion">Probabilité de réussite</th>
                         <th scope="col" class="sort">Faire une prédiction</th>
@@ -63,16 +65,37 @@
                                 {{ eleve.nom }}
                             </td>
                             <td>
-                                {{ eleve.age }}
+                                {{ eleve.age_at_enrollment }}
                             </td>
+                            
                             <td>
-                                {{ eleve.sexe }}
-                            </td>
-                            <td>
+                              {% if eleve.risque_abandon is not null %}  
+                                <div class="d-flex align-items-center">
+                                  <span class="completion mr-2">{{ eleve.risque_abandon|round_to_int}}%</span>
+                                  <div>
+                                    <div class="progress">
+                                      <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="{{ eleve.risque_abandon }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ eleve.risque_abandon }}%;"></div>
+                                    </div>
+                                  </div>
+                                </div>
+                              {% else %}
                                 {{ eleve.risque_abandon }}
+                              {% endif %}
                             </td>
+                            
                             <td>
+                              {% if eleve.proba_reussite is not null %}  
+                                <div class="d-flex align-items-center">
+                                  <span class="completion mr-2">{{ eleve.proba_reussite|round_to_int }}%</span>
+                                  <div>
+                                    <div class="progress">
+                                      <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{ eleve.proba_reussite }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ eleve.proba_reussite }}%;"></div>
+                                    </div>
+                                  </div>
+                                </div>
+                              {% else %}
                                 {{ eleve.proba_reussite }}
+                              {% endif %}
                             </td>
 
                             <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -81,24 +104,10 @@
                                 <a href="#" class="btn bg-gradient-success disabled" onclick="return false;">Prédire</a>
                                   
                               {% else %}
-                              <a href="#" 
+                              <a href="{% url 'update_eleve_fields' eleve.id %}" 
                                   class="predict-btn btn bg-gradient-success"
-                                  data-id="{{ eleve.id }}"
-                                  data-nom="{{ eleve.nom }}"
-                                  data-prenom="{{ eleve.prenom }}"
-                                  data-application-mode="{{ eleve.application_mode }}"
-                                  data-displaced="{{ eleve.displaced }}"
-                                  data-debtor="{{ eleve.debtor }}"
-                                  data-tuition-fees-up-to-date="{{ eleve.tuition_fees_up_to_date }}"
-                                  data-gender="{{ eleve.gender }}"
-                                  data-scholarship-holder="{{ eleve.scholarship_holder }}"
-                                  data-age-at-enrollment="{{ eleve.age_at_enrollment }}"
-                                  data-curricular-units-1st-sem-enrolled="{{ eleve.curricular_units_1st_sem_enrolled }}"
-                                  data-curricular-units-1st-sem-approved="{{ eleve.curricular_units_1st_sem_approved }}"
-                                  data-curricular-units-1st-sem-grade="{{ eleve.curricular_units_1st_sem_grade }}"
-                                  data-curricular-units-2nd-sem-enrolled="{{ eleve.curricular_units_2nd_sem_enrolled }}"
-                                  data-curricular-units-2nd-sem-approved="{{ eleve.curricular_units_2nd_sem_approved }}"
-                                  data-curricular-units-2nd-sem-grade="{{ eleve.curricular_units_2nd_sem_grade }}">
+                                  
+                                  >
                                   Prédire
                               </a>
                               {% endif %}
@@ -124,7 +133,7 @@
 
 </table>
 
-<script>
+<!-- <script>
   $('.predict-btn').on('click', function () {
       var eleveId = $(this).data('id');
       var nom = $(this).data('nom');
@@ -134,7 +143,7 @@
       var applicationMode = $(this).data('application-mode');
       var displaced = $(this).data('displaced');
       var debtor = $(this).data('debtor');
-      var tuitionFeesUpToDate = $(this).data('tuition-fees-up-to-date');
+      var tuitionFeesUpToDate = $(this).data('tuition_fees_up_to_date');
       var gender = $(this).data('gender');
       var scholarshipHolder = $(this).data('scholarship-holder');
       var ageAtEnrollment = $(this).data('age-at-enrollment');
@@ -147,7 +156,7 @@
 
       // Sérialisez toutes les données dont vous avez besoin dans l'objet payload
       var payload = {
-          id: eleveId,
+          
           nom: nom,
           prenom: prenom,
           application_mode: applicationMode,
@@ -164,7 +173,7 @@
           curricular_units_2nd_sem_approved: curricularUnits2ndSemApproved,
           curricular_units_2nd_sem_grade: curricularUnits2ndSemGrade,
       };
-
+      console.log(payload);
       // Effectuez une requête AJAX vers votre API de prédiction
       $.ajax({
           url: 'http://127.0.0.1:5000/predictStudent/',
@@ -184,6 +193,22 @@
       // Empêchez le lien d'être suivi
       return false;
   });
-</script>
-
+</script> -->
+<!-- <script>
+  function updateEleveFields(eleveId,classeId) {
+      // Envoyez une requête Ajax à la vue Django pour mettre à jour les champs
+      $.ajax({
+          type: 'POST',
+          url: 'update_eleve_fields' + '/'+ eleveId + classeId +'/',
+          success: function(response) {
+              // Gérez la réponse, si nécessaire
+              console.log(response);
+          },
+          error: function(error) {
+              // Gérez les erreurs, si nécessaire
+              console.error(error);
+          }
+      });
+  }
+</script> -->
 {% endblock content %}
